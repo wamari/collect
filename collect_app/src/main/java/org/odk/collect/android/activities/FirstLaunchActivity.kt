@@ -106,24 +106,24 @@ class FirstLaunchActivity : LocalizedActivity() {
                 )
             }
 
-            appName.text = String.format(
-                "%s %s",
-                getString(org.odk.collect.strings.R.string.collect_app_name),
-                versionInformation.versionToDisplay
-            )
+//            appName.text = String.format(
+//                "%s %s",
+//                getString(org.odk.collect.strings.R.string.collect_app_name),
+//                versionInformation.versionToDisplay
+//            )
 
-            dontHaveServer.apply {
-                text = SpannableStringBuilder()
-                    .append(getString(org.odk.collect.strings.R.string.dont_have_project))
-                    .append(" ")
-                    .color(getThemeAttributeValue(context, com.google.android.material.R.attr.colorAccent)) {
-                        append(getString(org.odk.collect.strings.R.string.try_demo))
-                    }
-
-                setOnClickListener {
-                    viewModel.tryDemo()
-                }
-            }
+//            dontHaveServer.apply {
+//                text = SpannableStringBuilder()
+//                    .append(getString(org.odk.collect.strings.R.string.dont_have_project))
+//                    .append(" ")
+//                    .color(getThemeAttributeValue(context, com.google.android.material.R.attr.colorAccent)) {
+//                        append(getString(org.odk.collect.strings.R.string.try_demo))
+//                    }
+//
+//                setOnClickListener {
+//                    viewModel.tryDemo()
+//                }
+//            }
         }
         lifecycle.addObserver(mdmConfigObserver)
     }
