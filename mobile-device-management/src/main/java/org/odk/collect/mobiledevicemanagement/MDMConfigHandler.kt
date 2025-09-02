@@ -1,6 +1,7 @@
 package org.odk.collect.mobiledevicemanagement
 
 import android.os.Bundle
+import org.odk.collect.analytics.Analytics
 import org.odk.collect.projects.ProjectCreator
 import org.odk.collect.projects.ProjectsRepository
 import org.odk.collect.projects.SettingsConnectionMatcher
@@ -23,16 +24,16 @@ class MDMConfigHandlerImpl(
     private val settingsConnectionMatcher: SettingsConnectionMatcher
 ) : MDMConfigHandler {
     override fun applyConfig(managedConfig: Bundle) {
+        Analytics.setUserProperty("SawMDMConfig", "true")
         applyDeviceId(managedConfig)
         applySettingsJson(managedConfig)
     }
 
     private fun applyDeviceId(managedConfig: Bundle) {
         if (managedConfig.containsKey(DEVICE_ID_KEY) && !managedConfig.getString(DEVICE_ID_KEY).isNullOrBlank()) {
-            settingsProvider.getMetaSettings().save(
-                KEY_INSTALL_ID, managedConfig.getString(
-                    DEVICE_ID_KEY
-                ))
+            settingsProvider.getMetaSettings().save(KEY_INSTALL_ID, managedConfig.getString(
+                DEVICE_ID_KEY
+            ))
         }
     }
 

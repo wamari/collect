@@ -260,14 +260,22 @@ Maintainers keep a folder with a clean checkout of the code and use [jenv.be](ht
 - run `./gradlew releaseCheck`. If successful, a signed release will be at `collect_app/build/outputs/apk` (with an old version name)
 - verify a basic "happy path": scan a QR code to configure a new project, get a blank form, fill it, open the form map (confirms that the Google Maps key is correct), send form
 - run `./benchmark.sh` with a real device connected to verify performance
+  - To run benchmarks a project will need to be set up in Central with the benchmark forms and app users. The forms and entities needed for that are available [here](https://drive.google.com/drive/folders/1dPLvDY0LhVX-5qTUEs6EDoraDnLpUS0g?usp=drive_link).
 - verify new APK can be installed as update to previous version and that above "happy path" works in that case also
 - create and publish scheduled forum post with release description
 - write Play Store release notes, include link to forum post
-- create a release with the correct version by tagging the commit and running `./collect_app:assembleOdkCollectRelease`
-  - Tags for full releases must have the format `vX.X.X`. Tags for beta releases must have the format `vX.X.X-beta.X`.
+- when creating a major release:
+  - Tag the commit for the release (`vX.X.0`)
+  - Run `./create-release.sh <last release version code> <release tag>`
+- when creating a hotfix release:
+  - Tag the commit for the release (`vX.X.X`)
+  - Run `./create-release.sh <last release version code> <release tag> <last beta tag>`
+- when creating a beta release:
+  - Tag the commit for the release (`vX.X.X-beta.X`)
+  - Run `./create-release.sh <last release version code> <release tag>`
 - add a release to Github [here](https://github.com/getodk/collect/releases), generate release notes and attach the APK
-- upload APK to Play Store
-- if there was an active beta before release (this can happen with point releases), publish a new beta release to replace the previous one which was disabled by the production release
+- upload APK(s) to Play Store
+  - When creating a hotfix, the beta APK should be uploaded second as it will have a higher version code
 - backup dependencies for the release by downloading the `vX.X.X.tar` artifact from the `create_dependency_backup` job on Circle CI (for the release commit) and then uploading it to [this folder](https://drive.google.com/drive/folders/1_tMKBFLdhzFZF9GKNeob4FbARjdfbtJu?usp=share_link)
 - backup a self signed release APK by downloading the `selfSignedRelease.apk` from the `build_release` job on Circle CI (for the release commit) and then upload to [this folder](https://drive.google.com/drive/folders/1pbbeNaMTziFhtZmedOs0If3BeYu3Ex5x?usp=share_link)
 
